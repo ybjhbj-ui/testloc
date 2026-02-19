@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Démo • Location Auto Premium</title>
+    <style>
+        /* =========================================
+           DESIGN SYSTEM (DARK & LUXURY AUTO)
+           ========================================= */
+        :root {
+            --bg-color: #0a0a0a;       
+            --card-bg: #141414;        
+            --text-main: #ffffff;      
+            --text-muted: #a0a0a0;     
+            --accent: #F5C518;         /* Jaune/Or premium */
+            --danger: #ff3b3b;         /* Rouge pour les règles/cautions */
+            --whatsapp: #25D366;
+        }
+
+        body { font-family: 'Helvetica Neue', Arial, sans-serif; background-color: var(--bg-color); color: var(--text-main); margin: 0; padding: 0; line-height: 1.6; }
+        h1, h2, h3 { text-transform: uppercase; margin: 0; letter-spacing: 1px; }
+        a { text-decoration: none; transition: 0.3s; }
+        
+        .container { max-width: 1000px; margin: 0 auto; padding: 0 20px; }
+
+        /* HEADER */
+        header {
+            background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.9)), url('https://images.unsplash.com/photo-1614200187524-dc4b892acf16?q=80&w=1200&auto=format&fit=crop') center/cover;
+            padding: 80px 20px; text-align: center; border-bottom: 3px solid var(--accent);
+        }
+        header h1 { font-size: 3rem; color: var(--accent); margin-bottom: 10px; font-weight: 900; }
+        .tagline { font-size: 1.2rem; color: #ddd; max-width: 600px; margin: 0 auto 30px; }
+
+        section { padding: 60px 0; }
+        .section-title { font-size: 2rem; text-align: center; margin-bottom: 40px; border-left: 5px solid var(--accent); display: inline-block; padding-left: 15px; }
+        .center-title { text-align: center; display: flex; justify-content: center; }
+
+        /* VÉHICULES & TARIFS */
+        .fleet-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+        .car-card { background: var(--card-bg); border-radius: 12px; overflow: hidden; border: 1px solid #333; }
+        .car-img { width: 100%; height: 220px; object-fit: cover; border-bottom: 2px solid var(--accent); }
+        .car-info { padding: 25px; }
+        .car-title { font-size: 1.5rem; margin-bottom: 15px; }
+        
+        .pricing-table { width: 100%; border-collapse: collapse; margin-bottom: 20px; font-size: 0.95rem; }
+        .pricing-table td { padding: 8px 0; border-bottom: 1px dashed #333; }
+        .pricing-table td:nth-child(2) { text-align: right; font-weight: bold; color: var(--accent); }
+        
+        .caution-badge { background: rgba(255, 59, 59, 0.1); color: var(--danger); padding: 10px; border-radius: 5px; text-align: center; font-weight: bold; border: 1px solid var(--danger); margin-bottom: 20px; }
+
+        /* RÈGLES STRICTES */
+        .rules-container { background: var(--card-bg); padding: 30px; border-radius: 12px; border: 1px solid #333; }
+        .rule-item { display: flex; align-items: flex-start; margin-bottom: 20px; }
+        .rule-icon { color: var(--danger); font-size: 1.5rem; margin-right: 15px; line-height: 1; }
+        .rule-text h4 { margin: 0 0 5px 0; color: var(--accent); }
+        .rule-text p { margin: 0; font-size: 0.9rem; color: var(--text-muted); }
+
+        /* BOUTONS DE CONTACT (Pré-remplis) */
+        .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 20px; }
+        .btn { display: block; text-align: center; padding: 15px; border-radius: 8px; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; }
+        .btn-wa { background: var(--whatsapp); color: #fff; }
+        .btn-wa:hover { background: #1ebe57; }
+        .btn-mail { background: #333; color: #fff; border: 1px solid #555; }
+        .btn-mail:hover { background: #444; }
+
+        /* FOOTER & MODALS */
+        footer { text-align: center; padding: 40px 20px; background: #000; font-size: 0.85rem; color: #666; border-top: 1px solid #222; }
+        .legal-links a { color: var(--text-muted); text-decoration: underline; cursor: pointer; margin: 0 10px; }
+        .legal-links a:hover { color: var(--accent); }
+
+        .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.8); }
+        .modal-content { background-color: var(--card-bg); margin: 5% auto; padding: 30px; border-radius: 10px; width: 90%; max-width: 700px; max-height: 80vh; overflow-y: auto; border: 1px solid var(--accent); }
+        .close-btn { color: #aaa; float: right; font-size: 28px; font-weight: bold; cursor: pointer; }
+        .close-btn:hover { color: #fff; }
+
+        @media (max-width: 768px) { .contact-grid { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>PRESTIGE RENT</h1>
+    <p class="tagline">La location de véhicules haut de gamme simplifiée. Transparence, exigence et réactivité.</p>
+</header>
+
+<div class="container">
+
+    <section>
+        <div class="center-title">
+            <h2 class="section-title">⚠️ Conditions Obligatoires</h2>
+        </div>
+        <div class="rules-container">
+            <div class="rule-item">
+                <div class="rule-icon">🔞</div>
+                <div class="rule-text">
+                    <h4>Âge & Permis</h4>
+                    <p>Minimum 21 ans et 3 ans de permis obligatoires. Documents originaux exigés le jour de la location.</p>
+                </div>
+            </div>
+            <div class="rule-item">
+                <div class="rule-icon">💳</div>
+                <div class="rule-text">
+                    <h4>Caution & Paiement</h4>
+                    <p>Empreinte bancaire obligatoire (non débitée). Le titulaire de la carte doit être le conducteur principal.</p>
+                </div>
+            </div>
+            <div class="rule-item">
+                <div class="rule-icon">🧼</div>
+                <div class="rule-text">
+                    <h4>Restitution du véhicule</h4>
+                    <p>Véhicule à rendre dans le même état de propreté et avec le même niveau de carburant. Pénalité de 50€ en cas de non-respect.</p>
+                </div>
+            </div>
+            <div class="rule-item">
+                <div class="rule-icon">🛣️</div>
+                <div class="rule-text">
+                    <h4>Kilométrage</h4>
+                    <p>Forfait de 250 km / jour inclus. Tout kilomètre supplémentaire sera facturé 2€/km.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="center-title">
+            <h2 class="section-title">Nos Véhicules & Tarifs</h2>
+        </div>
+        
+        <div class="fleet-grid">
+            
+            <div class="car-card">
+                <img src="https://images.unsplash.com/photo-1603584173870-7f23fdae1b7a?q=80&w=800&auto=format&fit=crop" alt="Voiture Sport" class="car-img">
+                <div class="car-info">
+                    <h3 class="car-title">Audi RS3 MTM</h3>
+                    
+                    <div class="caution-badge">
+                        🔒 Caution : 2 500 €
+                    </div>
+
+                    <table class="pricing-table">
+                        <tr><td>1 Journée (24h)</td><td>180 €</td></tr>
+                        <tr><td>Week-end (Ven. soir au Dim. soir)</td><td>450 €</td></tr>
+                        <tr><td>Semaine complète (7 jours)</td><td>990 €</td></tr>
+                    </table>
+
+                    <div class="contact-grid">
+                        <a href="https://wa.me/33600000000?text=Bonjour%20!%20Je%20suis%20int%C3%A9ress%C3%A9(e)%20par%20la%20location%20de%20l'Audi%20RS3.%20Quelles%20sont%20vos%20disponibilit%C3%A9s%20%3F" target="_blank" class="btn btn-wa">📱 WhatsApp</a>
+                        
+                        <a href="mailto:contact@prestigerent.com?subject=Demande%20de%20r%C3%A9servation%20-%20Audi%20RS3&body=Bonjour,%0A%0AJe%20souhaite%20r%C3%A9server%20l'Audi%20RS3.%0A%0ADates%20souhait%C3%A9es%20:%20...%0A%0AMerci%20de%20me%20confirmer%20la%20disponibilit%C3%A9." class="btn btn-mail">✉️ Email</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="car-card">
+                <img src="https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?q=80&w=800&auto=format&fit=crop" alt="Voiture Luxe" class="car-img">
+                <div class="car-info">
+                    <h3 class="car-title">Mercedes Classe A AMG</h3>
+                    
+                    <div class="caution-badge">
+                        🔒 Caution : 1 500 €
+                    </div>
+
+                    <table class="pricing-table">
+                        <tr><td>1 Journée (24h)</td><td>130 €</td></tr>
+                        <tr><td>Week-end (Ven. soir au Dim. soir)</td><td>320 €</td></tr>
+                        <tr><td>Semaine complète (7 jours)</td><td>750 €</td></tr>
+                    </table>
+
+                    <div class="contact-grid">
+                        <a href="https://wa.me/33600000000?text=Bonjour%20!%20Je%20suis%20int%C3%A9ress%C3%A9(e)%20par%20la%20location%20de%20la%20Mercedes%20AMG.%20Quelles%20sont%20vos%20disponibilit%C3%A9s%20%3F" target="_blank" class="btn btn-wa">📱 WhatsApp</a>
+                        <a href="mailto:contact@prestigerent.com?subject=Demande%20de%20r%C3%A9servation%20-%20Mercedes%20AMG&body=Bonjour,%0A%0AJe%20souhaite%20r%C3%A9server%20la%20Mercedes%20AMG.%0A%0ADates%20souhait%C3%A9es%20:%20...%0A%0AMerci%20de%20me%20confirmer%20la%20disponibilit%C3%A9." class="btn btn-mail">✉️ Email</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+</div>
+
+<footer>
+    <div class="container">
+        <p>© 2026 Prestige Rent. Site propulsé par Yac Design.</p>
+        <div class="legal-links">
+            <a onclick="openModal('mentions-modal')">Mentions Légales</a> | 
+            <a onclick="openModal('cgv-modal')">Conditions Générales de Vente (CGV)</a>
+        </div>
+    </div>
+</footer>
+
+<div id="mentions-modal" class="modal">
+    <div class="modal-content">
+        <span class="close-btn" onclick="closeModal('mentions-modal')">&times;</span>
+        <h3 style="color:var(--accent); margin-bottom: 15px;">Mentions Légales</h3>
+        <p><strong>Éditeur du site (Prestataire Technique) :</strong> Yac Design. Le créateur du site décline toute responsabilité en cas de litige lié à la location.</p>
+        <p><strong>Service de location :</strong> Assuré exclusivement par la société Prestige Rent (SIRET : XXXXXXXX).</p>
+        <p><strong>Hébergement :</strong> Cloudflare Pages.</p>
+    </div>
+</div>
+
+<div id="cgv-modal" class="modal">
+    <div class="modal-content">
+        <span class="close-btn" onclick="closeModal('cgv-modal')">&times;</span>
+        <h3 style="color:var(--accent); margin-bottom: 15px;">Conditions Générales de Vente (Extrait)</h3>
+        <p><strong>1. Objet :</strong> Ce site permet la mise en relation pour la location de véhicules terrestres à moteur.</p>
+        <p><strong>2. Caution :</strong> Une empreinte bancaire est exigée avant la remise des clés. Elle sera encaissée partiellement ou totalement en cas de dommages, vol, ou non-respect des règles (carburant, nettoyage, retards).</p>
+        <p><strong>3. Responsabilité civile :</strong> En cas d'accident responsable, une franchise sera appliquée selon le contrat d'assurance signé sur place.</p>
+        <p><em>* Les CGV complètes et le contrat de location seront à signer physiquement lors de la remise du véhicule.</em></p>
+    </div>
+</div>
+
+<script>
+    // Gestion des pop-ups (Modals)
+    function openModal(id) { document.getElementById(id).style.display = 'block'; }
+    function closeModal(id) { document.getElementById(id).style.display = 'none'; }
+    window.onclick = function(event) {
+        if (event.target.classList.contains('modal')) { event.target.style.display = 'none'; }
+    }
+</script>
+
+</body>
+</html>
