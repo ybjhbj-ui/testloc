@@ -29,7 +29,6 @@
     <style>
         body { background-color: #faf9f6; color: #0a0a0a; overflow-x: hidden; }
         .glass-nav { background: rgba(250, 249, 246, 0.9); backdrop-filter: blur(10px); }
-        /* Style Swiper pour laisser dépasser l'image suivante sur mobile */
         .swiper-slide { height: auto; }
         .faq-answer { display: none; }
     </style>
@@ -40,6 +39,7 @@
         <div class="max-w-7xl mx-auto px-6 flex justify-between items-center h-20">
             <div class="font-serif text-2xl tracking-widest uppercase">Le Temps d'un Soir</div>
             <div class="hidden md:flex space-x-8 text-sm tracking-[0.2em] uppercase text-gray-500">
+                <a href="#la-maison" class="hover:text-luxe-gold transition">La Maison</a>
                 <a href="#boutique" class="hover:text-luxe-gold transition">Collection</a>
                 <a href="#faq" class="hover:text-luxe-gold transition">FAQ</a>
                 <a href="#contact" class="hover:text-luxe-gold transition">Contact</a>
@@ -60,7 +60,31 @@
         </div>
     </section>
 
-    <section id="boutique" class="py-24 bg-luxe-white gs-reveal">
+    <section id="la-maison" class="py-24 bg-luxe-white gs-reveal">
+        <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center gap-16">
+            <div class="w-full md:w-1/2 relative">
+                <div class="absolute -inset-4 border border-luxe-gold/40 hidden md:block translate-x-6 translate-y-6"></div>
+                <div class="aspect-[4/5] bg-gray-100 relative z-10 flex items-center justify-center overflow-hidden">
+                    <span class="text-gray-400 text-xs tracking-[0.2em] uppercase">[ PHOTO CRÉATRICE / ATELIER ]</span>
+                </div>
+            </div>
+            <div class="w-full md:w-1/2">
+                <h2 class="text-xs tracking-[0.4em] text-luxe-gold mb-4 uppercase">Notre Histoire</h2>
+                <h3 class="font-serif text-4xl mb-8">La Maison</h3>
+                <p class="text-gray-500 font-light leading-relaxed mb-6 text-justify">
+                    Le Temps d'un Soir est né d'une volonté simple : sublimer la femme à travers des pièces d'exception. Installée à Avignon, notre maison sélectionne et confectionne des tenues uniques qui rayonnent bien au-delà de nos frontières.
+                </p>
+                <p class="text-gray-500 font-light leading-relaxed mb-10 text-justify">
+                    Chaque création est une promesse d'élégance. Que vous choisissiez de louer une parure le temps d'une soirée mémorable, ou d'acquérir une œuvre sur-mesure confectionnée avec minutie, notre engagement reste inchangé : l'excellence absolue.
+                </p>
+                <div class="font-serif italic text-3xl text-luxe-gold/80">
+                    Signature.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="boutique" class="py-24 bg-luxe-white gs-reveal border-t border-luxe-gray/50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6">
             <div class="flex flex-col items-center mb-16">
                 <h3 class="font-serif text-4xl mb-8">Nos Collections</h3>
@@ -192,9 +216,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     
     <script>
-        // Swiper: Configuré pour slider facilement de gauche à droite sur mobile
         const swiperConfig = {
-            slidesPerView: 1.2, // Laisse voir le bord de la robe suivante
+            slidesPerView: 1.2, 
             spaceBetween: 20,
             grabCursor: true,
             breakpoints: {
@@ -205,7 +228,6 @@
         let locSwiper = new Swiper('#section-loc', swiperConfig);
         let venteSwiper = new Swiper('#section-vente', swiperConfig);
 
-        // Système d'onglets (Location / Vente)
         function switchTab(tab) {
             const secLoc = document.getElementById('section-loc');
             const secVente = document.getElementById('section-vente');
@@ -227,21 +249,18 @@
             }
         }
 
-        // GSAP Animations
         gsap.registerPlugin(ScrollTrigger);
         gsap.from(".hero-content > *", { y: 30, opacity: 0, duration: 1.2, stagger: 0.2, ease: "power2.out" });
         gsap.utils.toArray('.gs-reveal').forEach(elem => {
             gsap.from(elem, { scrollTrigger: { trigger: elem, start: "top 85%" }, y: 40, opacity: 0, duration: 1, ease: "power2.out" });
         });
 
-        // FAQ Interactive avec GSAP
         document.querySelectorAll('.faq-toggle').forEach(button => {
             button.addEventListener('click', () => {
                 const answer = button.nextElementSibling;
                 const icon = button.querySelector('span:last-child');
                 const isOpen = answer.style.display === 'block';
 
-                // Fermer toutes les autres
                 document.querySelectorAll('.faq-answer').forEach(el => {
                     if (el !== answer) gsap.to(el, {height: 0, opacity: 0, duration: 0.3, onComplete: () => el.style.display = 'none'});
                 });
