@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Détail Produit | Le Temps d'un Soir</title>
+    <title>Détail | Le Temps d'un Soir</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
     
     <script>
@@ -13,157 +13,125 @@
             theme: {
                 extend: {
                     colors: {
-                        'blush-pink': '#FFF0F5',
-                        'gold-blush': '#E6C7C2',
-                        'dark-chic': '#2D2D2D',
-                        'gold-dark': '#B08D57'
+                        'luxe-black': '#0a0a0a',
+                        'luxe-white': '#faf9f6',
+                        'luxe-gold': '#C5A059',
+                        'luxe-gray': '#e5e5e5'
                     },
-                    fontFamily: {
-                        serif: ['"Playfair Display"', 'serif'],
-                        sans: ['Lato', 'sans-serif']
-                    }
+                    fontFamily: { serif: ['"Playfair Display"', 'serif'], sans: ['Inter', 'sans-serif'] }
                 }
             }
         }
     </script>
     <style>
-        body { background-color: #FFF0F5; color: #2D2D2D; overflow-x: hidden; }
-        .glass { background: rgba(255, 240, 245, 0.8); backdrop-filter: blur(10px); }
-        .swiper-button-next, .swiper-button-prev { color: #B08D57; }
-        .swiper-pagination-bullet-active { background: #B08D57; }
+        body { background-color: #faf9f6; color: #0a0a0a; overflow-x: hidden; }
+        .swiper-pagination-bullet-active { background: #C5A059; }
     </style>
 </head>
-<body class="font-sans antialiased">
+<body class="font-sans antialiased pt-24">
 
-    <nav class="fixed w-full z-50 glass border-b border-gold-blush/20">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center h-20">
-            <a href="index.html" class="font-serif text-2xl tracking-widest text-gold-dark uppercase">Le Temps d'un Soir</a>
-            <a href="index.html#boutique" class="text-sm tracking-widest text-dark-chic hover:text-gold-dark transition">Retour Boutique</a>
+    <nav class="fixed top-0 w-full z-50 bg-luxe-white border-b border-luxe-gray">
+        <div class="max-w-7xl mx-auto px-6 flex justify-between items-center h-20">
+            <a href="index.html" class="font-serif text-xl tracking-widest uppercase">Le Temps d'un Soir</a>
+            <a href="index.html#boutique" class="text-xs tracking-[0.2em] uppercase text-gray-500 hover:text-luxe-black transition">← Retour</a>
         </div>
     </nav>
 
-    <section class="pt-32 pb-24 px-4 max-w-7xl mx-auto flex flex-col md:flex-row gap-16">
+    <section class="max-w-7xl mx-auto px-4 pb-24 flex flex-col md:flex-row gap-16 gs-reveal">
         
         <div class="w-full md:w-1/2">
-            <div class="swiper mySwiper aspect-[3/4] bg-white border border-gold-blush/20 shadow-sm relative overflow-hidden">
+            <div class="swiper photoSwiper aspect-[3/4] bg-gray-100">
                 <div class="swiper-wrapper">
-                    <div class="swiper-slide flex items-center justify-center">
-                        <span class="text-gold-blush text-sm tracking-widest">[ PHOTO PRODUIT PRINCIPALE ]</span>
-                    </div>
-                    <div class="swiper-slide flex items-center justify-center">
-                        <span class="text-gold-blush text-sm tracking-widest">[ PHOTO PRODUIT DOS ]</span>
-                    </div>
-                    <div class="swiper-slide flex items-center justify-center">
-                        <span class="text-gold-blush text-sm tracking-widest">[ PHOTO PRODUIT DÉTAIL 1 ]</span>
-                    </div>
+                    <div class="swiper-slide flex items-center justify-center text-gray-400 text-xs tracking-widest">[ PHOTO PRINCIPALE ]</div>
+                    <div class="swiper-slide flex items-center justify-center text-gray-400 text-xs tracking-widest">[ PHOTO DOS ]</div>
+                    <div class="swiper-slide flex items-center justify-center text-gray-400 text-xs tracking-widest">[ PHOTO DÉTAIL BRODERIE ]</div>
                 </div>
-                <div class="swiper-button-next hidden md:flex"></div>
-                <div class="swiper-button-prev hidden md:flex"></div>
-                <div class="swiper-pagination md:hidden"></div>
+                <div class="swiper-pagination"></div>
             </div>
         </div>
 
-        <div class="w-full md:w-1/2 space-y-10">
-            <div class="space-y-2">
-                <h1 class="font-serif text-4xl md:text-5xl font-bold text-dark-chic">Kaftan Émeraude</h1>
-                <p class="text-gold-dark tracking-widest uppercase text-sm">Haute Couture & Élégance</p>
-            </div>
-
-            <p class="text-zinc-700 font-light leading-relaxed">
-                Sublimez votre allure avec ce Kaftan exclusif en velours de soie. Idéal pour vos événements mémorables, il allie tradition et modernité avec ses broderies or poudré délicates.
+        <div class="w-full md:w-1/2 flex flex-col justify-center">
+            
+            <p id="label-type" class="text-xs tracking-[0.3em] text-luxe-gold uppercase mb-4">Chargement...</p>
+            <h1 class="font-serif text-4xl md:text-5xl mb-6">La Robe Sélectionnée</h1>
+            <p class="text-gray-500 font-light leading-relaxed mb-8">
+                Un chef-d'œuvre de confection aux finitions parfaites. La coupe fluide et les détails minutieux garantissent une silhouette d'une élégance absolue.
             </p>
 
-            <div class="p-6 bg-white border border-gold-blush/10 space-y-4 shadow-sm">
-                <p class="font-bold text-dark-chic">Option : Location</p>
-                <p class="text-gold-dark text-3xl font-light">À partir de 80€</p>
-                <p class="text-sm text-zinc-600 font-light"><span class="text-gold-dark">Caution :</span> Empreinte bancaire via Stripe avant récupération.</p>
+            <div class="border-t border-b border-gray-200 py-6 mb-8 space-y-2">
+                <div class="flex items-end gap-4">
+                    <span id="price-display" class="font-serif text-3xl">0€</span>
+                    <span id="price-sub" class="text-gray-400 text-sm tracking-widest uppercase pb-1">/ Le tarif</span>
+                </div>
+                <p id="info-deposit" class="text-sm text-gray-500 font-light mt-2"></p>
+            </div>
+
+            <form class="space-y-5">
+                <div class="grid grid-cols-2 gap-5">
+                    <input type="text" placeholder="Prénom & Nom" class="w-full p-4 bg-transparent border border-gray-300 text-sm focus:border-luxe-black outline-none transition" required>
+                    <input type="tel" placeholder="Téléphone" class="w-full p-4 bg-transparent border border-gray-300 text-sm focus:border-luxe-black outline-none transition" required>
+                </div>
                 
+                <div id="calendar-field" class="hidden">
+                    <label class="block text-xs tracking-[0.2em] text-gray-500 uppercase mb-2">Dates de réservation</label>
+                    <input type="date" class="w-full p-4 bg-transparent border border-gray-300 text-sm focus:border-luxe-black outline-none transition">
                 </div>
 
-            <div class="space-y-4">
-                <button onclick="toggleForm('loc')" class="w-full bg-gold-dark text-white py-4 tracking-widest uppercase hover:bg-gold-dark/90 transition">Réserver pour Location</button>
-                <button onclick="toggleForm('vente')" class="w-full border border-gold-dark text-gold-dark py-4 tracking-widest uppercase hover:bg-gold-dark hover:text-white transition">Commander pour Achat</button>
-            </div>
-            
-            <div id="reservation-form" class="hidden p-8 bg-white border border-gold-blush/20 shadow-md space-y-6">
-                <h3 id="form-title" class="font-serif text-2xl text-gold-dark">Formulaire de Réservation</h3>
-                <form class="space-y-4">
-                    <input type="text" placeholder="Nom Complet" class="w-full p-4 border border-gold-blush/20 bg-blush-pink/30 focus:border-gold-dark outline-none">
-                    <input type="email" placeholder="Email" class="w-full p-4 border border-gold-blush/20 bg-blush-pink/30 focus:border-gold-dark outline-none">
-                    <input type="tel" placeholder="Téléphone" class="w-full p-4 border border-gold-blush/20 bg-blush-pink/30 focus:border-gold-dark outline-none">
-                    
-                    <div id="date-bloc" class="space-y-2">
-                        <label class="text-sm text-zinc-600 font-light">Date Souhaitée</label>
-                        <input type="date" class="w-full p-4 border border-gold-blush/20 bg-blush-pink/30 focus:border-gold-dark outline-none text-zinc-600">
-                    </div>
-                    
-                    <textarea placeholder="Informations complémentaires (Taille, ajustements...)" rows="3" class="w-full p-4 border border-gold-blush/20 bg-blush-pink/30 focus:border-gold-dark outline-none"></textarea>
-                    
-                    <button type="submit" class="w-full bg-gold-dark text-white py-4 tracking-widest uppercase hover:bg-gold-dark/90 transition">Confirmer & Payer l'Acompte</button>
-                    <p id="form-info" class="text-xs text-center text-zinc-500 font-light mt-4"></p>
-                </form>
-            </div>
+                <div class="bg-gray-50 p-4 border border-gray-200 text-xs text-gray-500 leading-relaxed text-center mb-6">
+                    <span class="block text-luxe-black font-medium mb-1 tracking-widest uppercase">Paiement Sécurisé Stripe</span>
+                    <span id="stripe-info">Vous allez régler un acompte pour valider la démarche.</span>
+                </div>
+
+                <button type="button" class="w-full bg-luxe-black text-luxe-white py-5 tracking-[0.2em] uppercase text-sm hover:bg-luxe-gold transition duration-500">
+                    Procéder au paiement
+                </button>
+            </form>
+
         </div>
     </section>
-
-    <section id="contact-produit" class="py-16 px-4 bg-white border-t border-gold-blush/20 gs-reveal">
-        <div class="max-w-7xl mx-auto flex flex-col md:flex-row gap-12 items-center text-center md:text-left">
-            <div class="w-full md:w-1/3 aspect-video bg-blush-pink flex items-center justify-center border border-gold-blush/20 shadow-sm">
-                <span class="text-gold-blush tracking-widest">[ PETITE CARTE AVIGNON ]</span>
-            </div>
-            <div class="w-full md:w-2/3 space-y-4 text-zinc-700 font-light">
-                <h4 class="font-serif text-3xl text-gold-dark">Boutique & Essayages</h4>
-                <p>Retrouvez-nous à <span class="font-bold text-dark-chic">Avignon, France</span> pour essayer nos créations exclusivess.</p>
-                <p>Contactez-nous directement via SMS & WhatsApp: +33 7 49 45 01 35 pour planifier votre visite.</p>
-                <p>Worldwide shipping disponible.</p>
-            </div>
-        </div>
-    </section>
-
-    <footer class="bg-blush-pink pt-16 pb-8 border-t border-gold-blush/20">
-        <div class="max-w-7xl mx-auto px-4 text-center text-xs text-zinc-500 font-light">
-            &copy; 2026 Le Temps d'un Soir. Votre élégance, notre passion.Mentions Légales | CGV
-        </div>
-    </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     
     <script>
-        // Initialisation Swiper (Swipe Mobile/Desktop)
-        const swiper = new Swiper('.mySwiper', {
-            slidesPerView: 1,
-            spaceBetween: 10,
-            navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
+        // Init Swiper pour les photos du produit
+        new Swiper('.photoSwiper', {
             pagination: { el: '.swiper-pagination', clickable: true },
+            grabCursor: true
         });
 
-        // Animations GSAP
-        gsap.registerPlugin(ScrollTrigger);
-        gsap.from(".pt-32 > *", { y: 30, opacity: 0, duration: 0.8, stagger: 0.2, ease: "power3.out" });
-        gsap.from(".gs-reveal", { scrollTrigger: { trigger: ".gs-reveal", start: "top 90%" }, y: 30, opacity: 0, duration: 0.8, ease: "power3.out" });
+        // GSAP Fade in
+        gsap.from(".gs-reveal", { y: 20, opacity: 0, duration: 1, ease: "power2.out" });
 
-        // Logique Formulaire (Loc/Vente)
-        function toggleForm(type) {
-            const formDiv = document.getElementById('reservation-form');
-            const formTitle = document.getElementById('form-title');
-            const dateBloc = document.getElementById('date-bloc');
-            const formInfo = document.getElementById('form-info');
+        // 🧠 LOGIQUE DYNAMIQUE (Location ou Vente)
+        document.addEventListener('DOMContentLoaded', () => {
+            // On regarde l'URL (ex: produit.html?type=loc)
+            const urlParams = new URLSearchParams(window.location.search);
+            const transactionType = urlParams.get('type') || 'loc'; // Par défaut: location
 
-            formDiv.classList.remove('hidden');
-            formTitle.innerText = (type === 'loc') ? 'Réserver pour Location' : 'Commander pour Achat';
-            formInfo.innerText = (type === 'loc') ? "Veuillez remplir vos informations. Paiement de l'acompte pour bloquer pour la location." : "Veuillez remplir vos informations. Paiement de l'acompte (30%) pour bloquer pour l'achat.";
+            const labelType = document.getElementById('label-type');
+            const priceDisplay = document.getElementById('price-display');
+            const priceSub = document.getElementById('price-sub');
+            const infoDeposit = document.getElementById('info-deposit');
+            const calendarField = document.getElementById('calendar-field');
+            const stripeInfo = document.getElementById('stripe-info');
 
-            if (type === 'loc') {
-                dateBloc.classList.remove('hidden');
+            if (transactionType === 'loc') {
+                labelType.innerText = "Location de Création";
+                priceDisplay.innerText = "80€";
+                priceSub.innerText = "/ jour";
+                infoDeposit.innerHTML = "<strong>Caution :</strong> Empreinte bancaire bloquée via Stripe (non débitée).";
+                calendarField.classList.remove('hidden');
+                stripeInfo.innerText = "Vous allez régler un acompte pour bloquer le calendrier. L'empreinte pour la caution sera demandée à l'étape suivante.";
             } else {
-                dateBloc.classList.add('hidden');
+                labelType.innerText = "Achat de Création";
+                priceDisplay.innerText = "420€";
+                priceSub.innerText = "/ prix total";
+                infoDeposit.innerHTML = "<strong>Commande :</strong> Confection sur-mesure (4 à 8 semaines).";
+                calendarField.classList.add('hidden'); // Pas besoin de calendrier pour acheter
+                stripeInfo.innerText = "Vous allez régler un acompte de 30% pour lancer la confection de votre tenue.";
             }
-            
-            // Scroll fluide vers le formulaire
-            gsap.to(window, { duration: 0.5, scrollTo: "#reservation-form" });
-        }
+        });
     </script>
 </body>
 </html>
