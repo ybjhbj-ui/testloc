@@ -1,12 +1,14 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="fr" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Détail | Le Temps d'un Soir</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     
     <script>
         tailwind.config = {
@@ -25,94 +27,217 @@
     </script>
     <style>
         body { background-color: #faf9f6; color: #0a0a0a; overflow-x: hidden; }
-        .swiper-pagination-bullet-active { background: #C5A059; }
+        
+        /* Personnalisation Swiper Luxe */
+        .swiper-pagination-bullet { background: #e5e5e5; opacity: 1; transition: all 0.3s ease; width: 6px; height: 6px; }
+        .swiper-pagination-bullet-active { background: #C5A059; transform: scale(1.5); }
+        
+        /* Flèches Swiper fines et élégantes */
+        .swiper-button-next, .swiper-button-prev { color: #0a0a0a; transition: color 0.3s; }
+        .swiper-button-next:hover, .swiper-button-prev:hover { color: #C5A059; }
+        .swiper-button-next::after, .swiper-button-prev::after { font-size: 20px !important; font-weight: 300; }
+        
+        /* Animation Accordéons */
+        .detail-answer { display: none; }
+        
+        /* Inputs minimalistes */
+        .input-luxe { border-bottom: 1px solid #e5e5e5; transition: border-color 0.3s ease; }
+        .input-luxe:focus { border-bottom-color: #0a0a0a; outline: none; }
+
+        /* Personnalisation du calendrier Flatpickr Luxe */
+        .flatpickr-calendar { font-family: 'Inter', sans-serif; box-shadow: 0 10px 40px -15px rgba(0,0,0,0.1) !important; border: 1px solid #e5e5e5 !important; }
+        .flatpickr-day.selected, .flatpickr-day.startRange, .flatpickr-day.endRange, .flatpickr-day.selected.inRange, .flatpickr-day.startRange.inRange, .flatpickr-day.endRange.inRange, .flatpickr-day.selected:focus, .flatpickr-day.startRange:focus, .flatpickr-day.endRange:focus, .flatpickr-day.selected:hover, .flatpickr-day.startRange:hover, .flatpickr-day.endRange:hover, .flatpickr-day.selected.prevMonthDay, .flatpickr-day.startRange.prevMonthDay, .flatpickr-day.endRange.prevMonthDay, .flatpickr-day.selected.nextMonthDay, .flatpickr-day.startRange.nextMonthDay, .flatpickr-day.endRange.nextMonthDay { background: #0a0a0a !important; border-color: #0a0a0a !important; color: #fff !important; }
+        .flatpickr-day.inRange { background: #f3f3f3 !important; border-color: transparent !important; box-shadow: none !important; }
     </style>
 </head>
-<body class="font-sans antialiased pt-24">
+<body class="font-sans antialiased pt-24 pb-20 md:pb-0">
 
-    <nav class="fixed top-0 w-full z-50 bg-luxe-white border-b border-luxe-gray">
+    <nav class="fixed top-0 w-full z-50 bg-luxe-white/90 backdrop-blur-md border-b border-luxe-gray">
         <div class="max-w-7xl mx-auto px-6 flex justify-between items-center h-20">
             <a href="index.html" class="font-serif text-xl tracking-widest uppercase">Le Temps d'un Soir</a>
-            <a href="index.html#boutique" class="text-xs tracking-[0.2em] uppercase text-gray-500 hover:text-luxe-black transition">← Retour</a>
+            <a href="index.html#boutique" class="text-xs tracking-[0.2em] uppercase text-gray-500 hover:text-luxe-black transition flex items-center gap-2">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+                Retour
+            </a>
         </div>
     </nav>
 
-    <section class="max-w-7xl mx-auto px-4 pb-24 flex flex-col md:flex-row gap-16 gs-reveal">
+    <div class="max-w-7xl mx-auto px-4 md:px-8 pt-4 pb-8 gs-reveal">
+        <div class="text-[10px] tracking-[0.3em] uppercase text-gray-400">
+            <a href="index.html" class="hover:text-luxe-black transition">Accueil</a> 
+            <span class="mx-2">/</span> 
+            <span id="label-type" class="text-luxe-black">Chargement...</span>
+        </div>
+    </div>
+
+    <section class="max-w-7xl mx-auto px-4 md:px-8 pb-24 grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-24 gs-reveal">
         
-        <div class="w-full md:w-1/2">
-            <div class="swiper photoSwiper aspect-[3/4] bg-gray-100">
-                <div class="swiper-wrapper">
-                    <div class="swiper-slide flex items-center justify-center text-gray-400 text-xs tracking-widest">[ PHOTO PRINCIPALE ]</div>
-                    <div class="swiper-slide flex items-center justify-center text-gray-400 text-xs tracking-widest">[ PHOTO DOS ]</div>
-                    <div class="swiper-slide flex items-center justify-center text-gray-400 text-xs tracking-widest">[ PHOTO DÉTAIL BRODERIE ]</div>
+        <div class="lg:col-span-7">
+            <div class="lg:sticky lg:top-32">
+                <div class="swiper photoSwiper aspect-[3/4] md:aspect-[4/5] bg-gray-100 relative group">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide flex items-center justify-center text-gray-400 text-xs tracking-widest">[ PHOTO PRINCIPALE ]</div>
+                        <div class="swiper-slide flex items-center justify-center text-gray-400 text-xs tracking-widest">[ PHOTO DOS ]</div>
+                        <div class="swiper-slide flex items-center justify-center text-gray-400 text-xs tracking-widest">[ DÉTAIL BRODERIE ]</div>
+                    </div>
+                    
+                    <div class="swiper-button-next opacity-0 group-hover:opacity-100 transition duration-300"></div>
+                    <div class="swiper-button-prev opacity-0 group-hover:opacity-100 transition duration-300"></div>
+                    
+                    <div class="swiper-pagination !bottom-6"></div>
                 </div>
-                <div class="swiper-pagination"></div>
             </div>
         </div>
 
-        <div class="w-full md:w-1/2 flex flex-col justify-center">
+        <div class="lg:col-span-5 flex flex-col pt-4 lg:pt-10">
             
-            <p id="label-type" class="text-xs tracking-[0.3em] text-luxe-gold uppercase mb-4">Chargement...</p>
-            <h1 class="font-serif text-4xl md:text-5xl mb-6">La Robe Sélectionnée</h1>
-            <p class="text-gray-500 font-light leading-relaxed mb-8">
-                Un chef-d'œuvre de confection aux finitions parfaites. La coupe fluide et les détails minutieux garantissent une silhouette d'une élégance absolue.
-            </p>
-
-            <div class="border-t border-b border-gray-200 py-6 mb-8 space-y-2">
-                <div class="flex items-end gap-4">
-                    <span id="price-display" class="font-serif text-3xl">0€</span>
-                    <span id="price-sub" class="text-gray-400 text-sm tracking-widest uppercase pb-1">/ Le tarif</span>
+            <h1 class="font-serif text-4xl md:text-5xl mb-4 text-luxe-black leading-tight">La Parure Signature</h1>
+            
+            <div class="mb-8">
+                <div class="flex items-end gap-3 mb-2">
+                    <span id="price-display" class="font-serif text-3xl text-luxe-gold">0€</span>
+                    <span id="price-sub" class="text-gray-400 text-xs tracking-[0.2em] uppercase pb-1">/ Le tarif</span>
                 </div>
-                <p id="info-deposit" class="text-sm text-gray-500 font-light mt-2"></p>
+                <p id="caution-display" class="text-[10px] text-luxe-black tracking-[0.2em] uppercase font-medium hidden">Caution requise : <span id="caution-amount" class="text-gray-500 font-light"></span></p>
             </div>
 
-            <form class="space-y-5">
-                <div class="grid grid-cols-2 gap-5">
-                    <input type="text" placeholder="Prénom & Nom" class="w-full p-4 bg-transparent border border-gray-300 text-sm focus:border-luxe-black outline-none transition" required>
-                    <input type="tel" placeholder="Téléphone" class="w-full p-4 bg-transparent border border-gray-300 text-sm focus:border-luxe-black outline-none transition" required>
+            <p class="text-gray-500 font-light leading-relaxed mb-10 text-sm md:text-base text-justify">
+                Un chef-d'œuvre de confection aux finitions parfaites. La coupe fluide et les détails minutieux garantissent une silhouette d'une élégance absolue pour vos événements les plus prestigieux.
+            </p>
+
+            <form class="space-y-8 mb-12 bg-white p-6 md:p-8 border border-luxe-gray shadow-[0_10px_40px_-15px_rgba(0,0,0,0.05)]">
+                <h3 class="text-xs tracking-[0.3em] uppercase text-center text-luxe-black mb-6">Demande de réservation</h3>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <input type="text" placeholder="Prénom & Nom" class="w-full pb-3 bg-transparent input-luxe text-sm placeholder-gray-400" required>
+                    </div>
+                    <div>
+                        <input type="tel" placeholder="Téléphone" class="w-full pb-3 bg-transparent input-luxe text-sm placeholder-gray-400" required>
+                    </div>
                 </div>
                 
-                <div id="calendar-field" class="hidden">
-                    <label class="block text-xs tracking-[0.2em] text-gray-500 uppercase mb-2">Dates de réservation</label>
-                    <input type="date" class="w-full p-4 bg-transparent border border-gray-300 text-sm focus:border-luxe-black outline-none transition">
+                <div id="calendar-field" class="hidden pt-4">
+                    <label class="block text-[10px] tracking-[0.2em] text-gray-400 uppercase mb-3">Sélectionnez vos dates (Début - Fin)</label>
+                    <div class="relative">
+                        <input type="text" id="date-picker" placeholder="Ex: 12 Mars au 14 Mars" class="w-full pb-3 bg-transparent input-luxe text-sm cursor-pointer" readonly>
+                    </div>
+                    <p id="duration-display" class="text-xs text-luxe-gold mt-3 font-medium hidden transition-all duration-300">
+                        Durée de la location : <span id="days-count" class="font-serif text-lg">0</span> jour(s)
+                    </p>
                 </div>
 
-                <div class="bg-gray-50 p-4 border border-gray-200 text-xs text-gray-500 leading-relaxed text-center mb-6">
-                    <span class="block text-luxe-black font-medium mb-1 tracking-widest uppercase">Paiement Sécurisé Stripe</span>
-                    <span id="stripe-info">Vous allez régler un acompte pour valider la démarche.</span>
+                <div class="bg-gray-50 p-5 text-center mt-6">
+                    <svg class="w-5 h-5 mx-auto text-luxe-gold mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                    <span class="block text-luxe-black text-xs font-medium mb-2 tracking-widest uppercase">Paiement Sécurisé</span>
+                    <span id="stripe-info" class="text-[10px] text-gray-400 uppercase tracking-wider block leading-relaxed"></span>
                 </div>
 
-                <button type="button" class="w-full bg-luxe-black text-luxe-white py-5 tracking-[0.2em] uppercase text-sm hover:bg-luxe-gold transition duration-500">
+                <button type="button" class="w-full bg-luxe-black text-luxe-white py-4 tracking-[0.2em] uppercase text-xs hover:bg-luxe-gold transition duration-500">
                     Procéder au paiement
                 </button>
             </form>
+
+            <div class="border-t border-luxe-gray divide-y divide-luxe-gray">
+                <div class="py-1">
+                    <button class="detail-toggle w-full flex justify-between items-center text-left py-5 focus:outline-none group">
+                        <span class="text-xs tracking-[0.2em] uppercase text-luxe-black group-hover:text-luxe-gold transition">Coupe & Détails</span>
+                        <span class="text-gray-400 font-serif text-xl group-hover:text-luxe-gold transition">+</span>
+                    </button>
+                    <div class="detail-answer text-sm text-gray-500 font-light leading-relaxed pb-6">
+                        Ce modèle présente une coupe cintrée à la taille avant de s'évaser subtilement. Les broderies sont réalisées à la main avec du fil d'or véritable.
+                    </div>
+                </div>
+                <div class="py-1">
+                    <button class="detail-toggle w-full flex justify-between items-center text-left py-5 focus:outline-none group">
+                        <span class="text-xs tracking-[0.2em] uppercase text-luxe-black group-hover:text-luxe-gold transition">Matière & Entretien</span>
+                        <span class="text-gray-400 font-serif text-xl group-hover:text-luxe-gold transition">+</span>
+                    </button>
+                    <div class="detail-answer text-sm text-gray-500 font-light leading-relaxed pb-6">
+                        Confectionné en velours de soie premium. En cas de location, le pressing spécialisé est intégralement pris en charge par la Maison. Ne tentez aucun lavage vous-même.
+                    </div>
+                </div>
+                <div class="py-1">
+                    <button class="detail-toggle w-full flex justify-between items-center text-left py-5 focus:outline-none group">
+                        <span class="text-xs tracking-[0.2em] uppercase text-luxe-black group-hover:text-luxe-gold transition">Livraison & Retours</span>
+                        <span class="text-gray-400 font-serif text-xl group-hover:text-luxe-gold transition">+</span>
+                    </button>
+                    <div class="detail-answer text-sm text-gray-500 font-light leading-relaxed pb-6">
+                        Expédition sécurisée sous 24h avec assurance incluse. Le colis de retour pré-affranchi est fourni dans la boîte pour faciliter la réexpédition après votre événement.
+                    </div>
+                </div>
+            </div>
 
         </div>
     </section>
 
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    
-    <script>
-        // Init Swiper pour les photos du produit
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="https://npmcdn.com/flatpickr/dist/l10n/fr.js"></script> <script>
+        // Init Swiper avec Flèches (Navigation)
         new Swiper('.photoSwiper', {
             pagination: { el: '.swiper-pagination', clickable: true },
+            navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
+            effect: 'fade',
+            fadeEffect: { crossFade: true },
             grabCursor: true
         });
 
-        // GSAP Fade in
-        gsap.from(".gs-reveal", { y: 20, opacity: 0, duration: 1, ease: "power2.out" });
+        // Calendrier Flatpickr Luxe (Plage de dates)
+        flatpickr("#date-picker", {
+            mode: "range",
+            minDate: "today",
+            locale: "fr",
+            dateFormat: "d M Y",
+            onChange: function(selectedDates, dateStr, instance) {
+                // Si deux dates sont sélectionnées (début et fin)
+                if(selectedDates.length === 2) {
+                    const diffTime = Math.abs(selectedDates[1] - selectedDates[0]);
+                    // Calcul du nombre de jours (inclusif)
+                    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1; 
+                    
+                    document.getElementById('duration-display').classList.remove('hidden');
+                    document.getElementById('days-count').innerText = diffDays;
+                } else {
+                    document.getElementById('duration-display').classList.add('hidden');
+                }
+            }
+        });
 
-        // 🧠 LOGIQUE DYNAMIQUE (Location ou Vente)
+        // GSAP Fade in doux
+        gsap.from(".gs-reveal", { y: 30, opacity: 0, duration: 1.2, ease: "power2.out", stagger: 0.1 });
+
+        // Logique des Accordéons Produit
+        document.querySelectorAll('.detail-toggle').forEach(button => {
+            button.addEventListener('click', () => {
+                const answer = button.nextElementSibling;
+                const icon = button.querySelector('span:last-child');
+                const isOpen = answer.style.display === 'block';
+
+                document.querySelectorAll('.detail-answer').forEach(el => {
+                    if (el !== answer) gsap.to(el, {height: 0, opacity: 0, duration: 0.3, onComplete: () => el.style.display = 'none'});
+                });
+                document.querySelectorAll('.detail-toggle span:last-child').forEach(ic => ic.innerText = '+');
+
+                if (!isOpen) {
+                    answer.style.display = 'block';
+                    gsap.fromTo(answer, {height: 0, opacity: 0}, {height: "auto", opacity: 1, duration: 0.4, ease: "power2.out"});
+                    icon.innerText = '-';
+                }
+            });
+        });
+
+        // LOGIQUE DYNAMIQUE (Location ou Vente)
         document.addEventListener('DOMContentLoaded', () => {
-            // On regarde l'URL (ex: produit.html?type=loc)
             const urlParams = new URLSearchParams(window.location.search);
-            const transactionType = urlParams.get('type') || 'loc'; // Par défaut: location
+            const transactionType = urlParams.get('type') || 'loc'; 
 
             const labelType = document.getElementById('label-type');
             const priceDisplay = document.getElementById('price-display');
             const priceSub = document.getElementById('price-sub');
-            const infoDeposit = document.getElementById('info-deposit');
+            const cautionDisplay = document.getElementById('caution-display');
+            const cautionAmount = document.getElementById('caution-amount');
             const calendarField = document.getElementById('calendar-field');
             const stripeInfo = document.getElementById('stripe-info');
 
@@ -120,16 +245,23 @@
                 labelType.innerText = "Location de Création";
                 priceDisplay.innerText = "80€";
                 priceSub.innerText = "/ jour";
-                infoDeposit.innerHTML = "<strong>Caution :</strong> Empreinte bancaire bloquée via Stripe (non débitée).";
+                
+                // Affichage de la caution pour la location
+                cautionDisplay.classList.remove('hidden');
+                cautionAmount.innerText = "250€ (Empreinte non débitée)";
+                
                 calendarField.classList.remove('hidden');
-                stripeInfo.innerText = "Vous allez régler un acompte pour bloquer le calendrier. L'empreinte pour la caution sera demandée à l'étape suivante.";
+                stripeInfo.innerText = "L'empreinte bancaire pour la caution et le règlement de la location seront sécurisés à l'étape suivante via Stripe.";
             } else {
                 labelType.innerText = "Achat de Création";
                 priceDisplay.innerText = "420€";
                 priceSub.innerText = "/ prix total";
-                infoDeposit.innerHTML = "<strong>Commande :</strong> Confection sur-mesure (4 à 8 semaines).";
-                calendarField.classList.add('hidden'); // Pas besoin de calendrier pour acheter
-                stripeInfo.innerText = "Vous allez régler un acompte de 30% pour lancer la confection de votre tenue.";
+                
+                // On cache la caution et le calendrier pour une vente
+                cautionDisplay.classList.add('hidden');
+                calendarField.classList.add('hidden'); 
+                
+                stripeInfo.innerText = "Vous allez régler un acompte de 30% pour lancer la confection de votre tenue (délai de 4 à 8 semaines).";
             }
         });
     </script>
